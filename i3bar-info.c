@@ -186,6 +186,7 @@ battery(struct section_data *data)
     FILE *f;
     char *text, *p;
     size_t len;
+    long percent;
 
     text = malloc(5 * sizeof(char));
     if (!text) {
@@ -213,6 +214,18 @@ battery(struct section_data *data)
     }
     p[0] = '%';
     p[1] = '\0';
+
+    percent = strtol(text, NULL, 10);
+    if (percent <= 0 || percent > 100) {
+        free(text);
+        return -1;
+    }
+
+    if (percent < 10) {
+        data->color = "#ff0000";
+    } else if (percent < 15) {
+        data->color = "#ffff00";
+    }
 
     data->name = "battery";
     data->full_text = text;
