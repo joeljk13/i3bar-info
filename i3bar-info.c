@@ -429,7 +429,8 @@ print_all_data(void)
         {datetime, free_datetime}
     };
 
-    for (unsigned int i = 0; i < sizeof(sections) / sizeof(sections[0]); ++i) {
+    for (unsigned int i = 0, n = 0; i < sizeof(sections) / sizeof(sections[0]);
+            ++i) {
         int err;
         struct section_data data;
 
@@ -450,7 +451,7 @@ print_all_data(void)
 
         err = sections[i].func(&data);
         if (err == 0 && !data.disabled) {
-            if (i > 0) {
+            if (n++ > 0) {
                 putchar(',');
             }
             print_data(&data);
