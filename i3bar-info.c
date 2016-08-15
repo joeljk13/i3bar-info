@@ -275,9 +275,9 @@ cpu_temp(struct section_data *data)
         return -1;
     }
 
-    if (temp > 75) {
+    if (temp >= 80) {
         data->color = "#ff0000";
-    } else if (temp > 70) {
+    } else if (temp > 75) {
         data->color = "#ffff00";
     }
 
